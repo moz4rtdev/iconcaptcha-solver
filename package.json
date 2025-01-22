@@ -1,0 +1,25 @@
+{
+  "name": "iconcaptcha-solver-api",
+  "version": "0.1.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/westsidedev/iconcaptcha-solver-api.git"
+  },
+  "author": "westsidedev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/westsidedev/iconcaptcha-solver-api/issues"
+  },
+  "homepage": "https://github.com/westsidedev/iconcaptcha-solver-api#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
