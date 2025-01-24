@@ -19,7 +19,11 @@
   "homepage": "https://github.com/westsidedev/iconcaptcha-solver-api#readme",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.2.1"
   }
 }
