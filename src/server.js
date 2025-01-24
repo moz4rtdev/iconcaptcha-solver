@@ -1,5 +1,5 @@
 import express from 'express';
-import 'dotenv';
+import 'dotenv/config';
 import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 
