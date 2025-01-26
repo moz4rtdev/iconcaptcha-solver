@@ -7,19 +7,14 @@ const iconcaptcha = require("../index.node");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).send("OK");
 });
 
-app.post("/api", (req, res) => {
+app.post("/", (req, res) => {
     let bs64 = req.get("img");
-    //console.log(bs64);
-    //console.log(req);
-
     let result = iconcaptcha.solve(bs64);
     res.status(200).send(result);
-
-
 })
 
 app.listen(port, () => {
