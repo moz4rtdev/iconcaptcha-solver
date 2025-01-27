@@ -21,7 +21,8 @@
   "dependencies": {
     "@prisma/client": "^6.2.1",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0"
   },
   "devDependencies": {
     "prisma": "^6.2.1"
