@@ -15,6 +15,7 @@ datasource db {
 
 model Tokens{
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  email       String   @unique
   credits     Int
   createdAt   DateTime @default(now())
   expiresAt   DateTime
