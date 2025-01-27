@@ -15,7 +15,7 @@ datasource db {
 
 model Tokens{
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  solve       Int
+  credits     Int
   createdAt   DateTime @default(now())
-  expireAt    DateTime
+  expiresAt   DateTime
 }
