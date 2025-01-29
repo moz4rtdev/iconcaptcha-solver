@@ -34,7 +34,7 @@ export async function authSolve(req, res, next) {
     });
 
     if (token == null) {
-        return res.status(401).json({ error: 'expired key' });
+        return res.status(401).json({ error: 'invalid or expired token' });
     }
 
     if (token.credits <= 0) {
