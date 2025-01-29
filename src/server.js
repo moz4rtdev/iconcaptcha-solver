@@ -4,6 +4,7 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import 'dotenv/config';
 import { createRequire } from 'node:module';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 const require = createRequire(import.meta.url);
 
 const iconcaptcha = require("../index.node");
@@ -38,14 +39,18 @@ app.get("/v1/token/:id", async (req, res) => {
 
 app.post("/v1/token/create", async (req, res) => {
     const body = req.body;
-    const newToken = await prisma.tokens.create({
-        data: {
-            email: body.email,
-            credits: 5,
-            expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        }
-    });
-    res.status(200).json(newToken);
+    try {
+        const newToken = await prisma.tokens.create({
+            data: {
+                email: body.email,
+                credits: 5,
+                expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            }
+        });
+        res.status(200).json(newToken);
+    } catch (error) {
+        if (error instanceof PrismaClientKnownRequestError) res.status(409).json({ error: 'Email already exists' })
+    }
 });
 
 app.put("/v1/token/update/:id", async (req, res) => {
