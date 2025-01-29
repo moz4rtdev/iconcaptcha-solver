@@ -47,7 +47,7 @@ app.post("/v1/token/create", async (req, res) => {
                 expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
             }
         });
-        res.status(200).json(newToken);
+        res.status(201).json(newToken);
     } catch (error) {
         if (error instanceof PrismaClientKnownRequestError) res.status(409).json({ error: 'Email already exists' })
     }
