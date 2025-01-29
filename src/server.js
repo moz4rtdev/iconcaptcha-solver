@@ -34,7 +34,11 @@ app.get("/v1/token/:id", async (req, res) => {
     const query = await prisma.tokens.findUnique({
         where: { id: token }
     })
-    res.status(200).json(query);
+    if (query == null) {
+        return res.status(401).json({ error: 'invalid or expired token' });
+    } else {
+        return res.status(200).json(query);
+    }
 });
 
 app.post("/v1/token/create", async (req, res) => {
