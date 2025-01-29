@@ -49,12 +49,13 @@ app.post("/v1/token/create", async (req, res) => {
 });
 
 app.put("/v1/token/update/:id", async (req, res) => {
+    const params = req.params;
     const body = req.body;
     const token = await prisma.tokens.update({
-        where: { id: body.token },
+        where: { id: params.id },
         data: {
             credits: {
-                increment: 5
+                increment: body.increment || 5
             }
         }
     });
