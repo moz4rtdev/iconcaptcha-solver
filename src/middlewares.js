@@ -27,10 +27,6 @@ export async function authSolve(req, res, next) {
         return res.status(401).json({ error: 'Unauthorized: No token provided.' });
     }
 
-    if (!body.image) {
-        return res.status(401).json({ error: 'Unauthorized: No image provided.' });
-    }
-
     const token = await prisma.tokens.findUnique({
         where: {
             id: body.token
@@ -38,11 +34,15 @@ export async function authSolve(req, res, next) {
     });
 
     if (token == null) {
-        return res.status(404).json({ error: 'invalid or expired key' });
+        return res.status(401).json({ error: 'expired key' });
     }
 
     if (token.credits <= 0) {
-        return res.status(401).json({ error: 'Unauthorized: your credits are gone' });
+        return res.status(403).json({ error: 'Unauthorized: your credits are gone' });
+    }
+
+    if (!body.image) {
+        return res.status(403).json({ error: 'Unauthorized: No image provided.' });
     }
 
     next();
