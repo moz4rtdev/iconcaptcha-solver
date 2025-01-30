@@ -93,7 +93,7 @@ app.post("/v1/solve", authSolve, async (req, res) => {
 
 })
 
-cron.schedule("20 * * * * *", async () => {
+cron.schedule("30 * * * * *", async () => {
     await prisma.tokens.findFirst();
     console.log("Ping feito!");
 })
