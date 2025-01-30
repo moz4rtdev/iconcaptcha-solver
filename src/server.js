@@ -8,6 +8,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 const require = createRequire(import.meta.url);
 
 const iconcaptcha = require("../index.node");
+const cron = require('node-cron');
 const app = express();
 const port = process.env.PORT || 3000;
 const prisma = new PrismaClient();
@@ -90,6 +91,11 @@ app.post("/v1/solve", authSolve, async (req, res) => {
         res.status(422).json(result);
     }
 
+})
+
+cron.schedule("30 * * * * *", async () => {
+    await prisma.tokens.findFirst();
+    console.log("Ping feito!");
 })
 
 app.listen(port, () => {
