@@ -22,7 +22,7 @@ app.use(limiter);
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.redirect("link");
+    res.redirect("https://google.com");
 });
 
 app.get("/admin/tokens", async (req, res) => {
