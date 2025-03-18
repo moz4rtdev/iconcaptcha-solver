@@ -15,7 +15,10 @@ const prisma = new PrismaClient();
 
 const limiter = rateLimit({
     windowMs: 10000,
-    limit: 10
+    limit: 10,
+    validate: {
+        xForwardedForHeader: false
+    }
 });
 
 app.use(limiter);
