@@ -14,8 +14,8 @@ const port = process.env.PORT || 3000;
 const prisma = new PrismaClient();
 
 const limiter = rateLimit({
-    windowMs: 1000,
-    limit: 20
+    windowMs: 10000,
+    limit: 10
 });
 
 app.use(limiter);
