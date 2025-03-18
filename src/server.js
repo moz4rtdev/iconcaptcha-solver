@@ -72,6 +72,14 @@ app.put("/v1/token/update/:id", async (req, res) => {
     res.status(200).send(token);
 })
 
+app.delete("/v1/token/delete/:id", async (req, res) => {
+    const token = req.params.id;
+    const query = await prisma.tokens.delete({
+        where: { id: token }
+    });
+    res.status(200).json(query);
+});
+
 app.post("/v1/solve", authSolve, async (req, res) => {
     let body = req.body;
     let result = iconcaptcha.solve(body.image);
