@@ -1,7 +1,7 @@
 {
   "name": "iconcaptcha-solver",
   "version": "0.2.0",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "next dev",
