@@ -1,32 +1,41 @@
 {
-  "name": "iconcaptcha-solver-api",
-  "version": "0.1.0",
-  "main": "index.js",
+  "name": "iconcaptcha-solver",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
-    "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/westsidedev/iconcaptcha-solver-api.git"
+    "url": "git+https://github.com/mallocdev/iconcaptcha-solver.git"
   },
-  "author": "westsidedev",
+  "author": "mallocdev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/westsidedev/iconcaptcha-solver-api/issues"
+    "url": "https://github.com/mallocdev/iconcaptcha-solver/issues"
   },
-  "homepage": "https://github.com/westsidedev/iconcaptcha-solver-api#readme",
+  "homepage": "https://github.com/mallocdev/iconcaptcha-solver#readme",
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.2.1",
+    "bindings": "^1.5.0",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-rate-limit": "^7.5.0",
-    "node-cron": "^3.0.3"
+    "next": "^15.2.5",
+    "node-cron": "^3.0.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "prisma": "^6.2.1"
+    "@types/node": "^22.14.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.2",
+    "@vercel/node": "^5.1.14",
+    "prisma": "^6.2.1",
+    "typescript": "^5.8.3"
   }
 }
