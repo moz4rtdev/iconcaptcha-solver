@@ -26,7 +26,7 @@ const codeExamples = {
         code: `const axios = require('axios');
 
 const solve = async () => {
-  const response = await axios.post('https://api.iconcaptcha.com/v1/solve', {
+  const response = await axios.post('https://iconcaptcha-solver.vercel.app/v1/solve', {
     token: 'YOUR_TOKEN',
     image: 'BASE64_OR_URL'
   });
@@ -45,7 +45,7 @@ solve();`
         code: `import requests
 
 response = requests.post(
-    'https://api.iconcaptcha.com/v1/solve',
+    'https://iconcaptcha-solver.vercel.app/v1/solve',
     json={
         'token': 'YOUR_TOKEN',
         'image': 'BASE64_OR_URL'
@@ -66,7 +66,7 @@ $data = array(
     'image' => 'BASE64_OR_URL'
 );
 
-$ch = curl_init('https://api.iconcaptcha.com/v1/solve');
+$ch = curl_init('https://iconcaptcha-solver.vercel.app/v1/solve');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
@@ -98,7 +98,7 @@ public class IconCaptchaSolver {
             
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-            .uri(URI.create("https://api.iconcaptcha.com/v1/solve"))
+            .uri(URI.create("https://iconcaptcha-solver.vercel.app/v1/solve"))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(json))
             .build();
@@ -118,7 +118,7 @@ public class IconCaptchaSolver {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
         ),
-        code: `curl -X POST https://api.iconcaptcha.com/v1/solve \\
+        code: `curl -X POST https://iconcaptcha-solver.vercel.app/v1/solve \\
   -H "Content-Type: application/json" \\
   -d '{
     "token": "YOUR_TOKEN",
