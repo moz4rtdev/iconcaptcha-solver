@@ -7,7 +7,7 @@ export interface Token {
 }
 
 export interface CreateTokenRequest {
-  token: string;
+  email: string;
 }
 
 export interface UpdateTokenRequest {
@@ -20,15 +20,15 @@ export interface SolveRequest {
 }
 
 export interface Icon {
-    position: number;
-    start: number;
-    end: number;
-    centerX: number;
-    centerY: number;
-    success: boolean;
+  position: number;
+  start: number;
+  end: number;
+  centerX: number;
+  centerY: number;
+  success: boolean;
 }
 
 export interface IconFailed {
-    message: string;
-    success: boolean;
+  message: string;
+  success: boolean;
 }

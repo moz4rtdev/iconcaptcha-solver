@@ -28,6 +28,28 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   return NextResponse.json(token);
 }
 
+export async function PUT(request: NextRequest, { params }: RouteParams) {
+  const { id } = await params;
+
+  try {
+    const updatedToken = await prisma.tokens.update({
+      where: { id },
+      data: {
+        credits: {
+          increment: 5
+        }
+      }
+    });
+
+    return NextResponse.json(updatedToken);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to update token' },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
   try {

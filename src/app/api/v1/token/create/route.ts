@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     const token = await prisma.tokens.create({
       data: {
-        email: body.token,
+        email: body.email,
         credits: 5,
         expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
       }
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     if (error?.code === 'P2002') {
       return NextResponse.json(
-        { error: 'Token already exists' },
+        { error: 'Email already exists' },
         { status: 409 }
       );
     }
