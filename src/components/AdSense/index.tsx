@@ -1,116 +1,58 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 interface WatchAdProps {
     onLoad?: () => void
     className?: string
 }
 
-interface YouTubePlayer {
-    Player: {
-        new(elementId: string, config: {
-            videoId: string
-            height?: string
-            width?: string
-            events?: {
-                onStateChange?: (event: { data: number }) => void
-            }
-        }): void
-    }
-    PlayerState: {
-        ENDED: number
-    }
-}
-
 declare global {
     interface Window {
-        onYouTubeIframeAPIReady: () => void
-        YT: YouTubePlayer
+        adsbygoogle: any[]
     }
 }
 
 export default function WatchAd({ onLoad, className }: WatchAdProps) {
-    const [videoEnded, setVideoEnded] = useState(false)
-    const [player, setPlayer] = useState<any>(null)
-
     useEffect(() => {
-        let isMounted = true;
-        setVideoEnded(false)
+        // Load AdSense script
+        const script = document.createElement('script')
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1372819950640997'
+        script.async = true
+        script.crossOrigin = 'anonymous'
+        document.head.appendChild(script)
 
-        // Function to create the player
-        const createPlayer = () => {
-            if (!isMounted) return;
-
-            const playerDiv = document.createElement('div')
-            playerDiv.id = 'youtube-player'
-            playerDiv.className = 'absolute inset-0'
-
-            const container = document.querySelector('[data-youtube-container]')
-            if (container) {
-                container.innerHTML = ''
-                container.appendChild(playerDiv)
-
-                const ytPlayer = new window.YT.Player('youtube-player', {
-                    videoId: 'nNkw3Fo9Aqk',
-                    height: '315',
-                    width: '560',
-                    events: {
-                        onStateChange: (event: { data: number }) => {
-                            if (!isMounted) return;
-                            if (event.data === window.YT.PlayerState.ENDED) {
-                                setVideoEnded(true)
-                                onLoad?.()
-                            }
-                        }
-                    }
-                })
-                setPlayer(ytPlayer)
-            }
-        }
-
-        // Check if YT API is already loaded
-        if (window.YT && window.YT.Player) {
-            createPlayer()
-        } else {
-            // Load YouTube API if not already loaded
-            if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-                const tag = document.createElement('script')
-                tag.src = 'https://www.youtube.com/iframe_api'
-                const firstScriptTag = document.getElementsByTagName('script')[0]
-                firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag)
-            }
-
-            // Setup YouTube player when API is ready
-            window.onYouTubeIframeAPIReady = () => {
-                if (!isMounted) return;
-                createPlayer()
+        script.onload = () => {
+            try {
+                // Push the ad after script loads
+                (window.adsbygoogle = window.adsbygoogle || []).push({})
+                // Simulate ad view completion after a delay
+                setTimeout(() => {
+                    onLoad?.()
+                }, 5000) // Wait 5 seconds before allowing continue
+            } catch (error) {
+                console.error('Error loading AdSense:', error)
             }
         }
 
         return () => {
-            isMounted = false
-            if (player?.destroy) {
-                try {
-                    player.destroy()
-                } catch (e) {
-                    console.error('Error destroying player:', e)
-                }
-            }
-            setPlayer(null)
-            setVideoEnded(false)
+            // Cleanup
+            document.head.removeChild(script)
         }
     }, [onLoad])
 
     return (
         <div className={className}>
-            <div className="aspect-video relative bg-black rounded-lg overflow-hidden" data-youtube-container>
+            <div className="bg-black rounded-lg overflow-hidden p-4">
+                <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block' }}
+                    data-ad-client="ca-pub-1372819950640997"
+                    data-ad-slot="3703153279"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"
+                />
             </div>
-            {videoEnded && (
-                <div className="mt-4 text-center text-green-400">
-                    <p>✓ Video watched - processing your request...</p>
-                </div>
-            )}
         </div>
     )
 }
