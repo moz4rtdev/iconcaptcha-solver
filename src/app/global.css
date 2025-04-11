@@ -1,0 +1,87 @@
+@import "tailwindcss";
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+/* Glass effect utilities */
+.glass-effect {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+}
+
+.glass-effect:hover {
+    @apply border-white/20 transition-colors;
+}
+
+/* Prism.js theme customizations */
+code[class*="language-"],
+pre[class*="language-"] {
+    text-shadow: none !important;
+    background: none !important;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+    font-size: 0.875rem !important;
+    line-height: 1.5 !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #8b949e !important;
+}
+
+.token.punctuation {
+    color: #c9d1d9 !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #79c0ff !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #7ee787 !important;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #d2a8ff !important;
+    background: none !important;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #ff7b72 !important;
+}
+
+.token.function,
+.token.class-name {
+    color: #d2a8ff !important;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #ffa657 !important;
+}
