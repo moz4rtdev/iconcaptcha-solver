@@ -182,7 +182,7 @@ export default async function Home() {
 
       <footer className="relative w-full py-8 px-4 bg-black/40 backdrop-blur-md border-t border-white/10 mt-16">
         <div className="max-w-7xl mx-auto text-center text-gray-400">
-          <p>&copy; 2024 IconCaptcha Solver. All rights reserved.</p>
+          <p>&copy; 2025 IconCaptcha Solver. All rights reserved.</p>
         </div>
       </footer>
     </div>
