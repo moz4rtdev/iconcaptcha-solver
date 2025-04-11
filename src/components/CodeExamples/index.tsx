@@ -28,7 +28,7 @@ const codeExamples = {
 const solve = async () => {
   const response = await axios.post('https://iconcaptcha-solver.vercel.app/v1/solve', {
     token: 'YOUR_TOKEN',
-    image: 'BASE64_OR_URL'
+    image: 'BASE64_IMG'
   });
   console.log(response.data);
 };
@@ -48,7 +48,7 @@ response = requests.post(
     'https://iconcaptcha-solver.vercel.app/v1/solve',
     json={
         'token': 'YOUR_TOKEN',
-        'image': 'BASE64_OR_URL'
+        'image': 'BASE64_IMG'
     }
 )
 print(response.json())`
@@ -63,7 +63,7 @@ print(response.json())`
         code: `<?php
 $data = array(
     'token' => 'YOUR_TOKEN',
-    'image' => 'BASE64_OR_URL'
+    'image' => 'BASE64_IMG'
 );
 
 $ch = curl_init('https://iconcaptcha-solver.vercel.app/v1/solve');
@@ -92,7 +92,7 @@ public class IconCaptchaSolver {
         String json = """
             {
                 "token": "YOUR_TOKEN",
-                "image": "BASE64_OR_URL"
+                "image": "BASE64_IMG"
             }
             """;
             
@@ -122,7 +122,7 @@ public class IconCaptchaSolver {
   -H "Content-Type: application/json" \\
   -d '{
     "token": "YOUR_TOKEN",
-    "image": "BASE64_OR_URL"
+    "image": "BASE64_IMG"
   }'`
     }
 }
