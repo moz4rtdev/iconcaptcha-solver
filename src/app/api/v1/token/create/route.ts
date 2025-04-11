@@ -8,6 +8,17 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
+    const headerKey = request.headers.get('key');
+    if (!headerKey) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
+    const checkKey = await fetch(new URL("/api/v1/check/" + headerKey, request.url).toString());
+    const response = await checkKey.json();
+    if (!response.valid) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
     const body = await request.json() as CreateTokenRequest;
 
     const token = await prisma.tokens.create({

@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import WatchAd from '@/components/AdSense'
 
 export default function TokenPage() {
     const [token, setToken] = useState<string>('')
@@ -12,6 +11,8 @@ export default function TokenPage() {
     const [error, setError] = useState<string>('')
     const [mode, setMode] = useState<'generate' | 'add'>('generate')
     const [showAd, setShowAd] = useState(false)
+    const [activationKey, setActivationKey] = useState('')
+    const [keyValid, setKeyValid] = useState(false);
 
     const handleAction = () => {
         if (mode === 'generate' && !email) {
@@ -36,7 +37,7 @@ export default function TokenPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email })
+                body: JSON.stringify({ email: email, key: activationKey })
             })
 
             if (!response.ok) {
@@ -59,7 +60,10 @@ export default function TokenPage() {
             setLoading(true)
             setError('')
             const response = await fetch(`/api/v1/token/${existingToken}`, {
-                method: 'PUT'
+                method: 'PUT',
+                headers: {
+                    'key': activationKey
+                }
             })
 
             if (!response.ok) {
@@ -77,13 +81,26 @@ export default function TokenPage() {
         }
     }
 
-    const onAdLoad = () => {
-        // Quando o anúncio carregar, processar a ação
-        if (mode === 'generate') {
-            generateToken()
-        } else {
-            addCredits()
+    const handleSubmit = async () => {
+        try {
+            if (!activationKey.trim()) {
+                setError('Please enter your activation key')
+                return
+            }
+            setLoading(true);
+            const response = await fetch('/api/v1/check/' + activationKey);
+            const data = await response.json();
+            if (data.valid) {
+                mode === 'generate' ? await generateToken() : await addCredits();
+            } else {
+                setError('Invalid activation key')
+            }
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setLoading(false)
         }
+
     }
 
     return (
@@ -188,20 +205,54 @@ export default function TokenPage() {
 
                             {showAd && (
                                 <div className="mt-8">
-                                    <div className="text-center mb-6">
-                                        <h3 className="text-lg font-semibold text-white mb-2">
-                                            {mode === 'generate' ? 'Watch Video to Generate Token' : 'Watch Video to Add Credits'}
-                                        </h3>
-                                        <p className="text-gray-400">
-                                            Please watch the video completely to continue
-                                        </p>
-                                    </div>
+                                    <div className="max-w-xl mx-auto">
+                                        <div className="bg-white/5 backdrop-blur-lg rounded-lg p-6 space-y-6">
+                                            <div className="text-center">
+                                                <h3 className="text-xl font-semibold text-white mb-2">Activate Your Token</h3>
+                                                <p className="text-gray-300 mb-4">
+                                                    Follow these steps to continue:
+                                                </p>
+                                                <ol className="text-left text-gray-300 space-y-3 mb-6">
+                                                    <li>1. Visit <a
+                                                        href="https://shrinkme.ink/iconcaptcha-solver-key"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-blue-400 hover:text-blue-300 underline"
+                                                    >
+                                                        our activation page
+                                                    </a></li>
+                                                    <li>2. Complete the steps shown on the page</li>
+                                                    <li>3. Copy the activation key provided</li>
+                                                    <li>4. Paste the key below to continue</li>
+                                                </ol>
+                                            </div>
 
-                                    <WatchAd
-                                        key={mode} // Add this line to force remount
-                                        onLoad={onAdLoad}
-                                        className="max-w-xl mx-auto"
-                                    />
+                                            <div className="space-y-4">
+                                                <div>
+                                                    <input
+                                                        type="text"
+                                                        value={activationKey}
+                                                        onChange={(e) => {
+                                                            setActivationKey(e.target.value)
+                                                            setError('')
+                                                        }}
+                                                        placeholder="Enter your activation key"
+                                                        className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                                    />
+                                                    {/* {error && (
+                                                        <p className="mt-2 text-sm text-red-400">{error}</p>
+                                                    )} */}
+                                                </div>
+
+                                                <button
+                                                    onClick={handleSubmit}
+                                                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg px-6 py-3 font-medium hover:from-blue-600 hover:to-purple-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all"
+                                                >
+                                                    Continue
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     {loading && (
                                         <div className="mt-4 text-center">
@@ -231,7 +282,7 @@ export default function TokenPage() {
                                         <p className="text-gray-400 mb-6">
                                             {mode === 'generate'
                                                 ? 'Your API token has been generated successfully. Make sure to copy and save it in a secure location.'
-                                                : 'Credits have been added to your token successfully.'}
+                                                : '5 credits have been added to your token successfully.'}
                                         </p>
                                     </div>
 

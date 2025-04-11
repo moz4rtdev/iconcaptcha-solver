@@ -29,9 +29,21 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
-  const { id } = await params;
-
   try {
+    const { id } = await params;
+    const headerKey = request.headers.get('key');
+
+    if (!headerKey) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
+    const checkKey = await fetch(new URL("/api/v1/check/" + headerKey, request.url).toString());
+    const response = await checkKey.json();
+
+    if (!response.valid) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
     const updatedToken = await prisma.tokens.update({
       where: { id },
       data: {
@@ -51,11 +63,25 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
-  const { id } = await params;
   try {
+    const { id } = await params;
+    const headerKey = request.headers.get('key');
+
+    if (!headerKey) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
+    const checkKey = await fetch("/api/v1/check/" + headerKey);
+    const response = await checkKey.json();
+
+    if (!response.valid) {
+      return NextResponse.json({ error: 'Invalid activation key' }, { status: 401 });
+    }
+
     const query = await prisma.tokens.delete({
       where: { id }
     });
+
     return NextResponse.json(query);
   } catch (error) {
     return NextResponse.json(
