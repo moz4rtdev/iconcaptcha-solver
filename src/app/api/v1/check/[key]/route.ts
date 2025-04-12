@@ -11,7 +11,7 @@ interface RouteParams {
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
   const { key } = await params;
-  const keyOrigin = await fetch("https://key-generator-api.vercel.app", {
+  const keyOrigin = await fetch("https://key-generator-api.vercel.app/iconcaptcha", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
