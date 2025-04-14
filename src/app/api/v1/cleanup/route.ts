@@ -1,26 +1,25 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 export const preferredRegion = "auto";
 export const dynamic = "force-dynamic";
 
 const prisma = new PrismaClient();
 
-interface CleanupResponse {
-  success: boolean;
-  deletedCount: number;
-}
-
 export async function GET() {
   try {
-    const deletedTokens = await fetch(new URL("/api/v1/cleanup")).then(
-      (response) => response.json() as Promise<CleanupResponse>,
-    );
+    const deletedTokens = await prisma.tokens.deleteMany({
+      where: {
+        expiresAt: {
+          lt: new Date(),
+        },
+      },
+    });
 
     return NextResponse.json({
       success: true,
-      deletedCount: deletedTokens.deletedCount,
+      deletedCount: deletedTokens.count,
     });
   } catch (error) {
     console.error("Failed to cleanup expired tokens:", error);
