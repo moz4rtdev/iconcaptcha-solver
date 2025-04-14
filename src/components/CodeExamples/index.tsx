@@ -40,7 +40,7 @@ const solve = async () => {
     token: 'YOUR_TOKEN',
     image: 'BASE64_IMG'
   });
-  console.log(response.data);
+  console.log(response);
 };
 
 solve();`,
