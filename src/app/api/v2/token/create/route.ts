@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const checkKey = await fetch(new URL("/api/v1/check", request.url), {
+    const checkKey = await fetch(new URL("/api/v2/check", request.url), {
       method: "POST",
       headers: {
         key: headerKey,

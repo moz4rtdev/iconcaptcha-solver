@@ -32,7 +32,7 @@ export default function TokenPage() {
     try {
       setLoading(true);
       setError("");
-      const response = await fetch("/api/v1/token/create", {
+      const response = await fetch("/api/v2/token/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function TokenPage() {
     try {
       setLoading(true);
       setError("");
-      const response = await fetch(`/api/v1/token/${existingToken}`, {
+      const response = await fetch(`/api/v2/token/${existingToken}`, {
         method: "PUT",
         headers: {
           key: activationKey,
@@ -92,7 +92,7 @@ export default function TokenPage() {
         return;
       }
       setLoading(true);
-      const response = await fetch("/api/v1/check/", {
+      const response = await fetch("/api/v2/check/", {
         method: "POST",
         headers: {
           key: activationKey,

@@ -14,7 +14,7 @@ interface CleanupResponse {
 
 export async function GET() {
   try {
-    const deletedTokens = await fetch(new URL("/api/v1/cleanup")).then(
+    const deletedTokens = await fetch(new URL("/api/v2/cleanup")).then(
       (response) => response.json() as Promise<CleanupResponse>,
     );
 
