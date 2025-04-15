@@ -344,7 +344,7 @@ export default function TokenPage() {
                     <p className="text-gray-400 mb-6">
                       {mode === "generate"
                         ? "Your API token has been generated successfully. Make sure to copy and save it in a secure location."
-                        : "5 credits have been added to your token successfully."}
+                        : "60 credits have been added to your token successfully."}
                     </p>
                   </div>
 
