@@ -3,9 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { SolveRequest } from "@/types";
 import { solveCaptcha } from "@/utils/addon";
 
-// export const runtime = 'nodejs';
-// export const preferredRegion = 'auto';
-
 const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {

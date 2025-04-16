@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
 interface RouteParams {
   params: Promise<{
     key: string;
