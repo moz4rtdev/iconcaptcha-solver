@@ -56,7 +56,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       where: { id },
       data: {
         credits: {
-          increment: 60,
+          increment: 600,
         },
       },
     });
