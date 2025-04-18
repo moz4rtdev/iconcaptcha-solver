@@ -1,20 +1,20 @@
-import './global.css';
-import type { Metadata } from 'next'
-import { Analytics } from '@vercel/analytics/next';
+import "./global.css";
+import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: 'IconCaptcha Solver',
-  description: 'API for solving IconCaptcha challenges',
+  title: "IconCaptcha Solver",
+  description: "Free API for solving IconCaptcha challenges",
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -23,5 +23,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
