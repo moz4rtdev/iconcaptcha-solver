@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -8,11 +8,11 @@ interface CleanupResponse {
   deletedCount: number;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const deletedTokens = await fetch(new URL("/api/v2/cleanup")).then(
-      (response) => response.json() as Promise<CleanupResponse>,
-    );
+    const deletedTokens = await fetch(
+      new URL("/api/v2/cleanup", request.url),
+    ).then((response) => response.json() as Promise<CleanupResponse>);
 
     return NextResponse.json({
       success: true,
