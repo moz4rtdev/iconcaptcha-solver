@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
     const token = await prisma.tokens.create({
       data: {
         email: body.email,
-        credits: 5000,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+        credits: 2500,
+        expiresAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days
       },
     });
 
