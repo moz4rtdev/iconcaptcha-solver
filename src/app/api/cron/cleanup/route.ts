@@ -1,22 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
-
-interface CleanupResponse {
-  success: boolean;
-  deletedCount: number;
-}
+import { cleanupTokens } from "@/utils/cleanup";
 
 export async function GET(request: NextRequest) {
   try {
-    const deletedTokens = await fetch(
-      new URL("/api/v2/cleanup", request.url),
-    ).then((response) => response.json() as Promise<CleanupResponse>);
-
+    const count = await cleanupTokens();
     return NextResponse.json({
       success: true,
-      deletedCount: deletedTokens.deletedCount,
+      deletedCount: count,
     });
   } catch (error) {
     console.error("Failed to cleanup expired tokens:", error);
