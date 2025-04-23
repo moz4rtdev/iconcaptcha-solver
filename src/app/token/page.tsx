@@ -12,15 +12,20 @@ export default function TokenPage() {
   const [mode, setMode] = useState<"generate" | "add">("generate");
   const [showAd, setShowAd] = useState(false);
   const [activationKey, setActivationKey] = useState("");
-  const [keyValid, setKeyValid] = useState(false);
 
   const handleAction = () => {
-    if (mode === "generate" && !email) {
-      setError("Please enter your email address");
+    if (
+      (mode === "generate" && !email) ||
+      (mode === "generate" && !email.includes("gmail"))
+    ) {
+      setError("Please enter a valid email address");
       return;
     }
-    if (mode === "add" && !existingToken) {
-      setError("Please enter your token");
+    if (
+      (mode === "add" && !existingToken) ||
+      (mode === "add" && existingToken.includes("gmail"))
+    ) {
+      setError("Please enter a valid token");
       return;
     }
 
@@ -155,7 +160,7 @@ export default function TokenPage() {
                   onClick={() => {
                     setMode("generate");
                     setShowAd(false);
-                    setToken("");
+                    setEmail("");
                     setError("");
                   }}
                   className={`px-4 py-2 rounded-lg transition-colors ${
@@ -170,7 +175,7 @@ export default function TokenPage() {
                   onClick={() => {
                     setMode("add");
                     setShowAd(false);
-                    setToken("");
+                    setExistingToken("");
                     setError("");
                   }}
                   className={`px-4 py-2 rounded-lg transition-colors ${
