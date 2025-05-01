@@ -361,6 +361,8 @@ export default function TokenPage() {
                     onClick={() => {
                       navigator.clipboard.writeText(token);
                       setToken("");
+                      setEmail("");
+                      setExistingToken("");
                     }}
                     className="w-full bg-white/10 text-white rounded-lg px-6 py-3 font-medium hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all"
                   >
