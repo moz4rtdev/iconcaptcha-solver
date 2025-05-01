@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: "IconCaptcha Solver",
+  title: "IconCaptcha Solver Free",
   description: "Free API for solving IconCaptcha challenges",
   icons: {
     icon: "/favicon.ico",
