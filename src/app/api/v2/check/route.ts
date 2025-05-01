@@ -8,18 +8,14 @@ interface RouteParams {
 
 export async function POST(request: NextRequest, { params }: RouteParams) {
   const key = request.headers.get("key");
-  const keyOrigin = await fetch(
-    "https://key-generator-api.vercel.app/iconcaptcha",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        referer: "https://shrinkme.ink",
-      },
+  const checkKey = await fetch("https://dev-generator-key.vercel.app/check", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  ).then((res) => res.text());
+    body: JSON.stringify({ token: key }),
+  });
   return NextResponse.json(
-    key === keyOrigin ? { valid: true } : { valid: false },
-    { status: key === keyOrigin ? 200 : 401 },
+    checkKey.status === 200 ? { valid: true } : { valid: false },
   );
 }
