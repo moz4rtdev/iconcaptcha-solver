@@ -12,8 +12,9 @@ export default function TokenPage() {
   const [mode, setMode] = useState<"generate" | "add">("generate");
   const [showAd, setShowAd] = useState(false);
   const [activationKey, setActivationKey] = useState("");
+  const [shortLink, setShortLink] = useState<string>("");
 
-  const handleAction = () => {
+  const handleAction = async () => {
     if (
       (mode === "generate" && !email) ||
       (mode === "generate" && !email.includes("gmail"))
@@ -29,6 +30,9 @@ export default function TokenPage() {
       return;
     }
 
+    const link = await fetch("api/v2/shortlink");
+    const linkText = await link.text();
+    setShortLink(linkText.trim().replace(/"/g, ""));
     setError("");
     setShowAd(true);
   };
@@ -253,7 +257,7 @@ export default function TokenPage() {
                           <li>
                             1. Visit{" "}
                             <a
-                              href="https://shrinkme.ink/iconcaptcha-solver-key"
+                              href={shortLink}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-blue-400 hover:text-blue-300 underline"
