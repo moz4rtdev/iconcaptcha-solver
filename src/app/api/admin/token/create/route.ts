@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       data: {
         email: body.email,
         credits: body.credits as number,
-        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days,
+        expiresAt: new Date(Date.now() + 31 * 24 * 60 * 60 * 1000), // 31 days,
       },
     });
 
