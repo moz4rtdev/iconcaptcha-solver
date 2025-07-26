@@ -22,7 +22,7 @@ export default async function Home() {
           </h1>
           <nav>
             <Link
-              href="/token"
+              href="https://t.me/moz4rtdev"
               className="max-[500px]:mt-3 flex items-center gap-2 text-gray-300 hover:text-white transition-colors px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-500/20 hover:from-blue-500/30 hover:to-purple-500/30 backdrop-blur-sm "
             >
               <svg
