@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mallocdev/iconcaptcha-solver.git"
+    "url": "git+https://github.com/moz4rtdev/iconcaptcha-solver.git"
   },
   "author": "mallocdev",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mallocdev/iconcaptcha-solver/issues"
+    "url": "https://github.com/moz4rtdev/iconcaptcha-solver/issues"
   },
-  "homepage": "https://github.com/mallocdev/iconcaptcha-solver#readme",
+  "homepage": "https://github.com/moz4rtdev/iconcaptcha-solver#readme",
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.2.1",
